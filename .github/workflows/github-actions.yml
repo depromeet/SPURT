@@ -34,7 +34,6 @@ jobs:
           user-email: ${{ secrets.GIT_EMAIL }}
           commit-message: ${{ github.event.head_commit.message || 'Auto commit [skip ci]' }}
           target-branch: main
-          force: true
 
       # 개발 환경(develop) 배포
       - name: Pushes to development repository
@@ -50,7 +49,6 @@ jobs:
           user-email: ${{ secrets.GIT_EMAIL }}
           commit-message: ${{ github.event.head_commit.message || 'Dev:Auto commit [skip ci]' }}
           target-branch: develop
-          force: true
 
       - name: Test get variable exported by push-to-another-repository
         run: echo $DESTINATION_CLONED_DIRECTORY
