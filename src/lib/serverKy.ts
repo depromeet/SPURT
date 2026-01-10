@@ -35,16 +35,16 @@ export async function refreshTokenOnce(): Promise<string> {
 	cookieStore.set("accessToken", accessToken, {
 		httpOnly: true,
 		secure: true,
-		sameSite: "none",
+		sameSite: "lax",
 		path: "/",
 		maxAge: 60 * 60,
 	});
 	cookieStore.set("refreshToken", newRefreshToken, {
 		httpOnly: true,
 		secure: true,
-		sameSite: "none",
+		sameSite: "lax",
 		path: "/",
-		maxAge: 60 * 60 * 24 * 7,
+		maxAge: 60 * 60 * 24 * 30,
 	});
 
 	return accessToken;

@@ -42,7 +42,7 @@ export async function GET(req: NextRequest) {
 		nextResponse.cookies.set("user", JSON.stringify(data), {
 			httpOnly: true,
 			secure: true,
-			sameSite: "none",
+			sameSite: "lax",
 			path: "/",
 			maxAge: 31536000,
 		});
