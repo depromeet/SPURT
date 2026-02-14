@@ -16,6 +16,10 @@ import AllTaskTabWrapper from "./_components/allTaskTabWrapper/AllTaskTabWrapper
 import Footer from "./_components/footer/Footer";
 import Header from "./_components/header/Header";
 import TodayTaskTabWrapper from "./_components/todayTaskTabWrapper/TodayTaskTabWrapper";
+import {
+	ServiceEndDialog,
+	shouldShowServiceEndDialog,
+} from "./_components/serviceEndDialog/ServiceEndDialog";
 
 const HomePageContent = () => {
 	const router = useRouter();
@@ -51,6 +55,7 @@ const HomePageContent = () => {
 	const [isFailedDialogOpen, setIsFailedDialogOpen] = useState(false);
 	const [personaId, setPersonaId] = useState<number | undefined>(undefined);
 	const [isCreateSheetOpen, setIsCreateSheetOpen] = useState(false);
+	const [isServiceEndDialogOpen, setIsServiceEndDialogOpen] = useState(false);
 
 	const searchParams = useSearchParams();
 	const [taskName, setTaskName] = useState("");
@@ -114,6 +119,10 @@ const HomePageContent = () => {
 		setIsFailedDialogOpen(false);
 	};
 
+	const handleServiceEndDialogButtonClick = () => {
+		setIsServiceEndDialogOpen(false);
+	};
+
 	const handleTabChange = useCallback((tab: "today" | "all") => {
 		setActiveTab(tab);
 	}, []);
@@ -174,6 +183,12 @@ const HomePageContent = () => {
 			setActiveTab("today");
 		}
 	}, [searchParams]);
+
+	useEffect(() => {
+		if (shouldShowServiceEndDialog()) {
+			setIsServiceEndDialogOpen(true);
+		}
+	}, []);
 
 	return (
 		<>
@@ -252,6 +267,11 @@ const HomePageContent = () => {
 			<CreateTaskSheet
 				isOpen={isCreateSheetOpen}
 				onClose={handleCloseCreateSheet}
+			/>
+
+			<ServiceEndDialog
+				value={isServiceEndDialogOpen}
+				onButtonClick={handleServiceEndDialogButtonClick}
 			/>
 		</>
 	);
